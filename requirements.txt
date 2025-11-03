@@ -4,3 +4,5 @@ langchain-mcp-adapters
 mcp
 langgraph
 python-dotenv
+streamlit
+requests

@@ -74,17 +74,31 @@ echo "GROQ_API_KEY=your_groq_api_key_here" > .env
 
 ```
 MCP_Server_Creation/
-├── client.py          # Main client connecting to multiple MCP servers
+├── app.py             # Streamlit web UI (recommended interface)
+├── client.py          # Command-line client connecting to multiple MCP servers
 ├── mathserver.py      # Math MCP server (stdio transport)
 ├── weather.py         # Weather MCP server (HTTP transport)
 ├── requirements.txt   # Python dependencies
 ├── pyproject.toml     # Project configuration
+├── env.example        # Environment variables template
 └── README.md          # This file
 ```
 
 ## Usage
 
-### Step 1: Start the Weather Server
+### Option 1: Web UI (Recommended)
+
+The easiest way to interact with the MCP servers is through the Streamlit web interface.
+
+#### Step 1: Update your `.env` file
+
+Make sure your `.env` file contains:
+```bash
+GROQ_API_KEY=your_groq_api_key_here
+WEATHER_API_KEY=your_weather_api_key_here
+```
+
+#### Step 2: Start the Weather Server
 
 In a separate terminal, start the HTTP-based weather server:
 
@@ -94,9 +108,33 @@ uv run python weather.py
 
 The server will start on `http://localhost:8000/mcp`.
 
-### Step 2: Run the Client
+#### Step 3: Run the Streamlit UI
 
-In another terminal, run the main client:
+In another terminal, start the web interface:
+
+```bash
+uv run streamlit run app.py
+```
+
+The UI will open in your browser automatically. You can then:
+- Chat with the agent
+- Ask math questions: "What's (3 + 5) × 12?"
+- Ask weather questions: "What is the weather in New York?"
+- Combine operations: "Add 25 and 17, then multiply by 3"
+
+### Option 2: Command Line Client
+
+If you prefer the command line interface:
+
+#### Step 1: Start the Weather Server
+
+```bash
+uv run python weather.py
+```
+
+#### Step 2: Run the Client
+
+In another terminal:
 
 ```bash
 uv run python client.py
